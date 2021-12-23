@@ -1,6 +1,8 @@
 export const AppConfig = {
-  site_name: 'Starter',
-  title: 'Nextjs Starter',
-  description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',
+  site_name: 'FLY5',
+  title: 'FLY5',
+  tagline: 'Drone Productions',
+  description:
+    'Aerial cinematography studio based in Charlotte, NC. Capturing reality from a new vantage point.',
   locale: 'en',
 };
