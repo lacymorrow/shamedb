@@ -14,18 +14,19 @@ const sendMail = async (data: {
 
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: process.env.SMTP_SERVER,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: 'gojukebox@gmail.com', // generated ethereal user
+      user: process.env.SMTP_USER, // generated ethereal user
+      pass: process.env.SMTP_PASS, // generated ethereal password
     },
   });
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: `"${data.name}" <${data.email || 'yo@fly5.live'}>`, // sender address
-    to: 'lacymorrow0+fly5@gmail.com', // list of receivers
+    to: process.env.SMTP_USER, // list of receivers
     subject: '👻 Yo from FLY5 ✔', // Subject line
     text: `Contact from ${data.name}: \r\n${data.phone} \r\n${data.email}\r\n${data.message}`, // plain text body
     html: `<h1>Yo from FLY5</h1><p>Contact from ${data.name}</p><p>${data.phone} ${data.email}</p><p>${data.message}</p><b>Hello world?</b>`, // html body
@@ -42,6 +43,9 @@ const sendMail = async (data: {
 
 const handler = (request: any, response: any) => {
   console.log('[sendmail] Received request: ', request);
+  if (!process.env.SMTP_PASS) {
+    return response.status(500).json({ error: config.errorMessage });
+  }
   if (!request?.body?.name) {
     // No name
     return response.status(422).json({ error: 'Please provide your name' });
@@ -74,7 +78,7 @@ const handler = (request: any, response: any) => {
     });
   return response
     .status(200)
-    .json({ success: 'Your message was sent, thanks for reaching out 📨' });
+    .json({ success: 'Your message was sent, thanks for reaching out  🚀' });
 };
 
 export default handler;
