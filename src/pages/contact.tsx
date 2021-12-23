@@ -1,14 +1,29 @@
+import { useState, useEffect } from 'react';
+
 import ContactForm from '../components/ContactForm';
 import { Meta } from '../components/Meta';
 import { ImageRotate } from '../styles/contact';
 import { Alt } from '../templates/Alternative';
+import { AppConfig } from '../utils/AppConfig';
 
 const About = () => {
+  const [randomNumber, setRandomNumber] = useState(0);
+
+  useEffect(() => {
+    setRandomNumber(Math.floor(Math.random() * 3));
+  }, []);
   return (
-    <Alt meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>
+    <Alt
+      meta={
+        <Meta
+          title={`Contact | ${AppConfig.title}`}
+          description={AppConfig.tagline}
+        />
+      }
+    >
       <div className="sm:table w-full">
         <ImageRotate
-          index={Math.floor(Math.random() * 3)}
+          index={randomNumber}
           className={`sm:table-cell sm:w-1/2 bg-cover min-h-[400px]`}
         ></ImageRotate>
         <div className="sm:table-cell w-full p-12 text-white font-bold mb-9">
