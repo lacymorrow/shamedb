@@ -1,7 +1,14 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false,
+  purge: {
+    content: ['./src/**/*.{js,ts,jsx,tsx}'],
+    options: {
+      safelist: [],
+      blocklist: [/^debug-/],
+      keyframes: true,
+      fontFace: true,
+    },
+  },
   theme: {
     fontSize: {
       xs: '0.75rem',
@@ -14,6 +21,8 @@ module.exports = {
       '4xl': '2.25rem',
       '5xl': '3rem',
       '6xl': '4rem',
+      '7xl': '5rem',
+      '8xl': '6rem',
     },
     extend: {
       colors: {

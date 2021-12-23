@@ -6,7 +6,7 @@ import { AppConfig } from '../utils/AppConfig';
 
 const Index = () => {
   return (
-    <div className="antialiased w-full px-1 text-center flex justify-center items-center flex-col">
+    <div className="antialiased w-full min-h-screen px-1 text-center flex justify-center items-center flex-col">
       <Meta
         title={`${AppConfig.title}: ${AppConfig.tagline}`}
         description={AppConfig.description}
