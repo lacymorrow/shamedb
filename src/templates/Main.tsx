@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import Link from 'next/link';
 
-import { AppConfig } from '../utils/AppConfig';
+import config from '../utils/config';
 
 type MainProps = {
   meta: ReactNode;
@@ -17,9 +17,9 @@ const Main = (props: MainProps) => (
       <div className="border-b border-gray-300">
         <div className="pt-16 pb-8">
           <div className="font-extrabold text-6xl text-gray-900">
-            {AppConfig.title}
+            {config.title}
           </div>
-          <div className="text-xl uppercase">{AppConfig.tagline}</div>
+          <div className="text-xl uppercase">{config.tagline}</div>
         </div>
         <div>
           <ul className="flex flex-wrap text-xl">
@@ -45,7 +45,7 @@ const Main = (props: MainProps) => (
       <div className="py-5 text-xl content">{props.children}</div>
 
       <div className="border-t border-gray-300 text-center py-8 text-sm">
-        © Copyright {new Date().getFullYear()} {AppConfig.title}
+        © Copyright {new Date().getFullYear()} {config.title}
       </div>
     </div>
   </div>

@@ -5,19 +5,23 @@ import {
   InputGroup,
   Status,
 } from '../styles/components/ContactForm';
+import config from '../utils/config';
 
 const ContactForm = () => {
+  const [active, setActive] = useState(false);
   const [status, setStatus] = useState({
     message: '',
     error: false,
-    active: false,
   });
   const postForm = async (event: any) => {
     event.preventDefault();
 
-    const result = await fetch('/api/contact', {
+    const result = await fetch('/api/sendmail', {
       body: JSON.stringify({
         name: event.target.name.value,
+        email: event.target.email.value,
+        phone: event.target.tel.value,
+        message: event.target.message.value,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -25,42 +29,49 @@ const ContactForm = () => {
       method: 'POST',
     })
       .then((response) => {
-        if (response.status >= 200 && response.status < 300) {
+        // If success or validation error HTTP 422
+        if (
+          (response.status >= 200 && response.status < 300) ||
+          response.status === 422
+        ) {
           return response.json();
         }
         throw Error(response.statusText);
       })
-      .then((res) => res.data)
-      .catch((error) => console.log('Request failed', error));
+      .catch((error) => {
+        // Server error
+        console.error('[sendmail] Error sending mail: ', error);
+        setStatus({
+          message: config.errorMessage,
+          error: true,
+        });
+      });
 
-    if (result) {
+    if (result?.success) {
+      // Success
       setStatus({
-        message: result,
+        message: result.success,
         error: false,
-        active: true,
       });
     } else {
+      // Likely a validation error
       setStatus({
-        message:
-          'There was an error, please email <a href="#">yo@fly5.live</a>',
+        message: result?.error || config.errorMessage,
         error: true,
-        active: true,
       });
     }
 
+    setActive(true);
+
+    // Hide status bar after delay
     setTimeout(() => {
-      console.log(status.message);
-      setStatus({
-        message: status.message,
-        error: status.error,
-        active: false,
-      });
+      setActive(false);
     }, 2000);
   };
   return (
-    <FormStyled onSubmit={postForm}>
+    <FormStyled onSubmit={(event) => postForm(event)}>
       <Status
-        active={status.active}
+        active={active}
         error={status.error}
         className="absolute top-0 left-0 right-0 font-bold text-black bg-white p-4 text-center"
         dangerouslySetInnerHTML={{

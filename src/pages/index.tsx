@@ -2,16 +2,16 @@ import Link from 'next/link';
 
 import { Meta } from '../components/Meta';
 import { BigTitle } from '../styles';
-import { AppConfig } from '../utils/AppConfig';
+import config from '../utils/config';
 
 const Index = () => {
   return (
     <div className="antialiased w-full min-h-screen px-1 text-center flex justify-center items-center flex-col">
       <Meta
-        title={`${AppConfig.title}: ${AppConfig.tagline}`}
-        description={AppConfig.description}
+        title={`${config.title}: ${config.tagline}`}
+        description={config.description}
       />
-      <BigTitle>{AppConfig.title}</BigTitle>
+      <BigTitle>{config.title}</BigTitle>
       <p className="font-bold text-2xl mb-12 uppercase">
         Aerial drone productions <span className="lowercase">with</span>{' '}
         <span className="font-extrabold text-white bg-gray-900 p-1 ">

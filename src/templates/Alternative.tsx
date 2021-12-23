@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 
 import { PageWrapper, Wrapper } from '../styles/main';
-import { AppConfig } from '../utils/AppConfig';
+import config from '../utils/config';
 
 type AltProps = {
   meta: ReactNode;
@@ -15,7 +15,7 @@ const Alt = (props: AltProps) => (
     {props.meta}
     <div className="pt-2 pb-8 w-100 w-full mx-auto flex-col justify-center text-gray-900">
       <div className="relative">
-        {/* <div className="text-xl uppercase">{AppConfig.tagline}</div> */}
+        {/* <div className="text-xl uppercase">{config.tagline}</div> */}
         {/* <ul className="flex flex-wrap text-lg sm:text-xl mx-auto text-center sm:absolute right-0 font-semibold lowercase justify-center opacity-50 transition">
           <li className="p-5">
             <Link href="/">
@@ -36,7 +36,7 @@ const Alt = (props: AltProps) => (
         <div className="font-extrabold text-8xl px-5 md:pl-10 text-white text-center sm:text-left hover:opacity-100 hover:text-white">
           <Link href="/">
             <a className="font-extrabold text-8xl text-whit text-center transition duration-500 ease-in-out opacity-60 hover:opacity-80 hover:text-white">
-              {AppConfig.title}
+              {config.title}
             </a>
           </Link>
         </div>
@@ -48,7 +48,7 @@ const Alt = (props: AltProps) => (
       </Wrapper>
     </div>
     <div className="text-center py-16 text-xs uppercase text-gray-700">
-      © Copyright {new Date().getFullYear()} {AppConfig.title}
+      © Copyright {new Date().getFullYear()} {config.title}
     </div>
   </PageWrapper>
 );
