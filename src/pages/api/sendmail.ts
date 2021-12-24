@@ -29,7 +29,7 @@ const sendMail = async (data: {
     to: process.env.SMTP_USER, // list of receivers
     subject: '👻 Yo from FLY5 ✔', // Subject line
     text: `Contact from ${data.name}: \r\n${data.phone} \r\n${data.email}\r\n${data.message}`, // plain text body
-    html: `<h1>Yo from FLY5</h1><p>Contact from ${data.name}</p><p>${data.phone} ${data.email}</p><p>${data.message}</p><b>Hello world?</b>`, // html body
+    html: `<h1>Yo from FLY5</h1><p>Contact from ${data.name}</p><p>${data.phone} ${data.email}</p><p>${data.message}</p>`, // html body
   });
 
   return info;
