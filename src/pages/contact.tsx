@@ -32,8 +32,11 @@ const About = (props: any) => {
             className="w-full h-full absolute"
             active={imageLoaded}
             onClick={() => {
-              setImageLoaded(false);
-              setImageIndex(incrementNumber(imageIndex, config.shotsCount));
+              // prvent multiple clicks
+              if (imageLoaded) {
+                setImageLoaded(false);
+                setImageIndex(incrementNumber(imageIndex, config.shotsCount));
+              }
             }}
           >
             {props.imageIndex === imageIndex && (

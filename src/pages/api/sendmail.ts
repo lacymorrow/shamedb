@@ -14,12 +14,12 @@ const sendMail = async (data: {
 
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: 'smtp.google.com',
+    host: process.env.SMTP_SERVER,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: process.env.SMTP_USER, // generated ethereal user
+      pass: process.env.SMTP_PASS, // generated ethereal password
     },
   });
 
@@ -41,7 +41,7 @@ const sendMail = async (data: {
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 };
 
-const handler = async (request: any, response: any) => {
+const handler = (request: any, response: any) => {
   console.log('[sendmail] Received request: ', request);
   if (!process.env.SMTP_PASS) {
     return response.status(500).json({ error: config.errorMessage });
@@ -63,7 +63,7 @@ const handler = async (request: any, response: any) => {
       .json({ error: 'Tell us something, like "I want to know more"' });
   }
 
-  await sendMail({
+  sendMail({
     name: request.body.name,
     email: request.body.email,
     phone: request.body.phone,
