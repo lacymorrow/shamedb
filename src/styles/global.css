@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	@apply antialiased text-gray-800;
+}
+
+ul {
+	a {
+		@apply text-gray-700 border-none hover:text-gray-900;
+	}
+}
+
+.content p {
+  @apply my-6;
+}
+
+.content ul {
+  @apply my-6;
+}
