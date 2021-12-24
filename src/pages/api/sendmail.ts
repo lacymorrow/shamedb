@@ -14,12 +14,12 @@ const sendMail = async (data: {
 
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_SERVER,
+    host: 'smtp.google.com',
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.SMTP_USER, // generated ethereal user
-      pass: process.env.SMTP_PASS, // generated ethereal password
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 
