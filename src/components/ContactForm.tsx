@@ -66,7 +66,7 @@ const ContactForm = () => {
     // Hide status bar after delay
     setTimeout(() => {
       setActive(false);
-    }, 2000);
+    }, 5000);
   };
   return (
     <FormStyled onSubmit={(event) => postForm(event)}>

@@ -21,8 +21,8 @@ const About = (props: any) => {
     <Alt
       meta={
         <Meta
-          title={`Contact | ${config.title}`}
-          description={config.tagline}
+          title={`Contact | ${config.title}: ${config.tagline}`}
+          description={config.description}
         />
       }
     >

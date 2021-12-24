@@ -9,12 +9,19 @@ import { generateRandom } from '../utils/utils';
 
 const Index = () => {
   const [imageIndex, setImageIndex] = useState(0);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
+    setImageIndex(generateRandom(config.shotsCount));
     return () => {
-      setImageIndex(generateRandom(config.shotsCount));
+      // Fade in clipped image
+      if (!active) {
+        setTimeout(() => {
+          setActive(true);
+        }, 1000);
+      }
     };
-  });
+  }, [imageIndex]);
 
   return (
     <div className="antialiased w-full min-h-screen px-1 py-16 text-center flex items-center flex-col">
@@ -23,9 +30,10 @@ const Index = () => {
         description={config.description}
       />
 
-      <BigTitle src={`/assets/images/shots/${imageIndex}.jpg`}>
+      <BigTitle active={active} src={`/assets/images/shots/${imageIndex}.jpg`}>
         {config.title}
       </BigTitle>
+
       <p className="font-bold text-2xl mb-12 uppercase">
         Aerial drone productions <span className="lowercase">with</span>{' '}
         <span className="font-extrabold text-white bg-gray-900 p-1 ">
