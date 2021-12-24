@@ -41,7 +41,7 @@ const sendMail = async (data: {
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 };
 
-const handler = (request: any, response: any) => {
+const handler = async (request: any, response: any) => {
   console.log('[sendmail] Received request: ', request);
   if (!process.env.SMTP_PASS) {
     return response.status(500).json({ error: config.errorMessage });
@@ -63,7 +63,7 @@ const handler = (request: any, response: any) => {
       .json({ error: 'Tell us something, like "I want to know more"' });
   }
 
-  sendMail({
+  await sendMail({
     name: request.body.name,
     email: request.body.email,
     phone: request.body.phone,
