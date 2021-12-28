@@ -32,7 +32,7 @@ const ContactForm = () => {
   const postForm = async (event: any) => {
     event.preventDefault();
 
-    const result = await fetch('/api/sendmail', {
+    const result = await fetch('/api/send-email', {
       body: JSON.stringify({
         name: state.name,
         email: state.email,
@@ -45,11 +45,8 @@ const ContactForm = () => {
       method: 'POST',
     })
       .then((response) => {
-        // If success or validation error HTTP 422
-        if (
-          (response.status >= 200 && response.status < 300) ||
-          response.status === 422
-        ) {
+        // If success or validation error
+        if (response.status >= 200 && response.status < 300) {
           return response.json();
         }
         throw Error(response.statusText);
@@ -63,7 +60,7 @@ const ContactForm = () => {
         });
       });
 
-    if (result?.message) {
+    if (result.message) {
       // Success
       setStatus({
         message: result.message,
@@ -72,7 +69,7 @@ const ContactForm = () => {
     } else {
       // Likely a validation error
       setStatus({
-        message: result?.error || config.errorMessage,
+        message: result.error || result.error?.message || config.errorMessage,
         error: true,
       });
     }
