@@ -27,12 +27,12 @@ const sendEmail = async ({
               email: process.env.RECEIVING_EMAIL,
             },
           ],
-          subject: 'Demo success :)',
+          subject: '👻 Yo from FLY5 ✔',
         },
       ],
       from: {
         email: 'yo@fly5.live',
-        name: `👻 Yo from FLY5 ✔`,
+        name: `★ FLY5`,
       },
       content: [
         {
