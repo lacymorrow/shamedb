@@ -13,15 +13,31 @@ const ContactForm = () => {
     message: '',
     error: false,
   });
+
+  const [state, setState] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setState({
+      ...state,
+      [name]: value,
+    });
+  };
+
   const postForm = async (event: any) => {
     event.preventDefault();
 
     const result = await fetch('/api/sendmail', {
       body: JSON.stringify({
-        name: event.target.name.value,
-        email: event.target.email.value,
-        phone: event.target.tel.value,
-        message: event.target.message.value,
+        name: state.name,
+        email: state.email,
+        phone: state.phone,
+        message: state.message,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -47,10 +63,10 @@ const ContactForm = () => {
         });
       });
 
-    if (result?.success) {
+    if (result?.message) {
       // Success
       setStatus({
-        message: result.success,
+        message: result.message,
         error: false,
       });
     } else {
@@ -86,27 +102,30 @@ const ContactForm = () => {
           name="name"
           placeholder="Name"
           autoComplete="name"
+          onChange={handleChange}
           required
         />
       </InputGroup>
       <InputGroup>
         {/* <label htmlFor="email">Email</label> */}
         <input
-          type="text"
           id="email"
           name="email"
           placeholder="Email"
+          type="email"
           autoComplete="email"
+          onChange={handleChange}
         />
       </InputGroup>
       <InputGroup>
-        {/* <label htmlFor="tel">Name</label> */}
+        {/* <label htmlFor="phone">Name</label> */}
         <input
-          id="tel"
-          name="tel"
-          type="tel"
+          id="phone"
+          name="phone"
           placeholder="Phone"
+          type="tel"
           autoComplete="tel"
+          onChange={handleChange}
         />
       </InputGroup>
       <InputGroup>
@@ -117,6 +136,7 @@ const ContactForm = () => {
           placeholder="Tell us what's up"
           rows={4}
           className="w-full"
+          onChange={handleChange}
         />
       </InputGroup>
       <button

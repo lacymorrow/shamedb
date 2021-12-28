@@ -25,7 +25,7 @@ const sendMail = async (data: {
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: `"${data.name}" <${data.email || 'yo@fly5.live'}>`, // sender address
+    from: `"${data.name}" <gojukebox@gmail.com>`, // sender address
     to: process.env.SMTP_USER, // list of receivers
     subject: '👻 Yo from FLY5 ✔', // Subject line
     text: `Contact from ${data.name}: \r\n${data.phone} \r\n${data.email}\r\n${data.message}`, // plain text body
@@ -42,7 +42,7 @@ const sendMail = async (data: {
 };
 
 const handler = (request: any, response: any) => {
-  console.log('[sendmail] Received request: ', request);
+  // console.log('[sendmail] Received request: ', request);
   if (!process.env.SMTP_PASS) {
     return response.status(500).json({ error: config.errorMessage });
   }
