@@ -23,10 +23,10 @@ const ContactForm = () => {
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    setState({
-      ...state,
+    setState((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
   const postForm = async (event: any) => {

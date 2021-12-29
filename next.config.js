@@ -3,6 +3,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// const { withPlaiceholder } = require('@plaiceholder/next');
+
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   trailingSlash: true,

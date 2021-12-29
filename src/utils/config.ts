@@ -1,5 +1,5 @@
 const config = {
-  shotsCount: 21,
+  totalImages: 21,
   site_name: 'FLY5',
   email: 'me@lacymorrow.com',
   title: 'FLY5',

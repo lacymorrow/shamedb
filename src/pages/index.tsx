@@ -12,16 +12,14 @@ const Index = () => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    setImageIndex(generateRandom(config.shotsCount));
-    return () => {
-      // Fade in clipped image
-      if (!active) {
-        setTimeout(() => {
-          setActive(true);
-        }, 1000);
-      }
-    };
-  }, [imageIndex]);
+    setImageIndex(generateRandom(config.totalImages));
+    // Fade in clipped image
+    if (!active) {
+      setTimeout(() => {
+        setActive(true);
+      }, 1000);
+    }
+  }, []);
 
   return (
     <div className="antialiased w-full min-h-screen px-1 py-16 text-center flex items-center flex-col">

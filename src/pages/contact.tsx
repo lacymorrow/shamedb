@@ -1,22 +1,18 @@
-import { useState } from 'react';
-
-import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
-import { BlurhashCanvas } from 'react-blurhash';
+import { IGetBlurhashReturn } from 'plaiceholder/dist/blurhash';
 
 import ContactForm from '../components/ContactForm';
+import ImageRotate from '../components/ImageRotate';
 import { Meta } from '../components/Meta';
-import { ImageRotate } from '../styles/contact';
 import { Alt } from '../templates/Alternative';
 import config from '../utils/config';
-import { generateRandom, incrementNumber } from '../utils/utils';
+import { generateRandom, strFormat } from '../utils/utils';
 
-const About = (props: any) => {
-  const [imageIndex, setImageIndex] = useState(props.imageIndex);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const image = `/assets/images/shots/${imageIndex}.jpg`;
-
+const About = (props: {
+  imagePath: string;
+  imageIndex: number;
+  blurData: IGetBlurhashReturn;
+}) => {
   return (
     <Alt
       meta={
@@ -29,47 +25,11 @@ const About = (props: any) => {
       <div className="sm:table w-full">
         <div className="sm:table-cell sm:w-1/2 min-h-[400px] relative">
           <ImageRotate
-            className="w-full h-full absolute"
-            active={imageLoaded}
-            onClick={() => {
-              // prvent multiple clicks
-              if (imageLoaded) {
-                setImageLoaded(false);
-                setImageIndex(incrementNumber(imageIndex, config.shotsCount));
-              }
-            }}
-          >
-            {props.imageIndex === imageIndex && (
-              <BlurhashCanvas
-                {...props.blurDataURL}
-                punch={1}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                }}
-              />
-            )}
-            <Image
-              alt=""
-              src={image}
-              priority={true}
-              sizes="50vw"
-              objectFit="cover"
-              blurDataURL={props.blurDataURL}
-              height="100%"
-              width="100%"
-              className="w-full h-full absolute transition duration-1000"
-              layout="responsive"
-              onLoad={() => {
-                setImageLoaded(true);
-              }}
-            />{' '}
-          </ImageRotate>
+            path={props.imagePath}
+            total={config.totalImages}
+            staticBlurData={props.blurData}
+            staticInitialIndex={props.imageIndex}
+          />
         </div>
         <div className="sm:table-cell w-full p-12 text-white font-bold mb-9">
           <h2 className="text-2xl mb-4">Contact us for more info</h2>
@@ -80,17 +40,18 @@ const About = (props: any) => {
   );
 };
 
+// cannot do this within a component
 export const getStaticProps = async () => {
-  const imageIndex = generateRandom(config.shotsCount);
-  const image = `/assets/images/shots/${imageIndex}.jpg`;
+  const imageIndex = generateRandom(config.totalImages);
+  const imagePath = '/assets/images/shots/%s.jpg';
+  const image = strFormat(imagePath, imageIndex);
   const { blurhash } = await getPlaiceholder(image);
-  // const svgData = `data:image/svg+xml;base64,${btoa(svg.toString())}`;
 
   return {
     props: {
+      imagePath,
       imageIndex,
-      image,
-      blurDataURL: blurhash,
+      blurData: blurhash,
     },
   };
 };
