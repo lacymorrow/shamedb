@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 
 import config from '../utils/config';
 
-type MetaProps = {
+interface MetaProps {
   title: string;
   description: string;
   canonical?: string;
-};
+}
 
 const Meta = (props: MetaProps) => {
   const router = useRouter();

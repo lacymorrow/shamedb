@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Meta } from '../components/Meta';
-import { BigTitle } from '../styles';
+import VideoText from '../components/VideoText';
+import { BigTitle, TextWrapper } from '../styles';
 import config from '../utils/config';
 import { generateRandom } from '../utils/utils';
 
@@ -12,7 +13,9 @@ const Index = () => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
+    // Runs on mount only
     setImageIndex(generateRandom(config.totalImages));
+
     // Fade in clipped image
     if (!active) {
       setTimeout(() => {
@@ -28,12 +31,29 @@ const Index = () => {
         description={config.description}
       />
 
-      <BigTitle active={active} src={`/assets/images/shots/${imageIndex}.jpg`}>
+      <TextWrapper>
+        <VideoText
+          text={config.title}
+          // posterImage={`/assets/images/shots/${imageIndex}.jpg`}
+          src={[
+            '/assets/videos/0.mp4',
+            '/assets/videos/1.mp4',
+            '/assets/videos/2.mp4',
+          ]}
+        />
+      </TextWrapper>
+
+      <BigTitle
+        className="display-none"
+        active={active}
+        src={`/assets/images/shots/${imageIndex}.jpg`}
+      >
         {config.title}
       </BigTitle>
 
       <p className="font-bold text-2xl mb-12 uppercase">
-        Aerial drone productions <span className="lowercase">with</span>{' '}
+        Aerial cinematography {/* drone productions */}{' '}
+        <span className="lowercase">with</span>{' '}
         <span className="font-extrabold text-white bg-gray-900 p-1 ">
           Impact
         </span>

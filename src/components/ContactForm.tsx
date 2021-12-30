@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Reducer, useReducer, useState } from 'react';
 
 import {
   FormStyled,
@@ -7,6 +7,13 @@ import {
 } from '../styles/components/ContactForm';
 import config from '../utils/config';
 
+interface StateType {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
 const ContactForm = () => {
   const [active, setActive] = useState(false);
   const [status, setStatus] = useState({
@@ -14,19 +21,24 @@ const ContactForm = () => {
     error: false,
   });
 
-  const [state, setState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
+  const [state, setState] = useReducer<Reducer<StateType, Partial<StateType>>>(
+    (currentState, newState) => ({ ...currentState, ...newState }),
+    {
+      name: '',
+      email: '',
+      phone: '',
+      message: '',
+    }
+  );
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setState({ [name]: value });
+
+    // setState((prevState) => ({
+    //   ...prevState,
+    //   [name]: value,
+    // }));
   };
 
   const postForm = async (event: any) => {

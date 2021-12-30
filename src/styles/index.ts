@@ -1,6 +1,13 @@
 import styled from '@emotion/styled';
 
+export const TextWrapper = styled.div<any>`
+  width: 720px;
+  position: relative;
+`;
+
 export const BigTitle = styled.h1<any>`
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   ${(props) => ({
     backgroundImage: `url("${props.src || '/assets/images/shots/8.jpg'}")`,
   })}
@@ -8,7 +15,7 @@ export const BigTitle = styled.h1<any>`
   -webkit-text-fill-color: transparent;
   transition: all 2s ease-in;
   color: black;
-  font-weight: 800;
+  font-weight: 900;
   font-size: 16rem;
   /* display: inline-block; */
   text-align: center;

@@ -3,7 +3,7 @@ const config = {
   site_name: 'FLY5',
   email: 'me@lacymorrow.com',
   title: 'FLY5',
-  tagline: 'Drone Productions',
+  tagline: 'Aerial Cinematography',
   description:
     'Aerial cinematography studio based in Charlotte, NC. Capturing reality from a new vantage point.',
   locale: 'en',
