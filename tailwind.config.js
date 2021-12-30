@@ -23,6 +23,10 @@ module.exports = {
       '6xl': '4rem',
       '7xl': '5rem',
       '8xl': '6rem',
+      '9xl': '8rem',
+      '10xl': '10rem',
+      '12xl': '12rem',
+      '16xl': '16rem',
     },
     extend: {
       colors: {

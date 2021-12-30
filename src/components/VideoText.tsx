@@ -9,6 +9,7 @@ import React, {
 import {
   StyledBackgroundText,
   StyledVideoText,
+  StyledWrapper,
 } from '../styles/components/VideoText';
 import { incrementNumber } from '../utils/utils';
 
@@ -71,7 +72,7 @@ const VideoText = (props: {
   }, []);
 
   return (
-    <div className="position-relative" {...rest}>
+    <StyledWrapper {...rest}>
       <StyledBackgroundText>{text || children}</StyledBackgroundText>
       <StyledVideoText
         active={state.active}
@@ -104,7 +105,7 @@ const VideoText = (props: {
           </clipPath>
         </svg>
       </StyledVideoText>
-    </div>
+    </StyledWrapper>
   );
 };
 

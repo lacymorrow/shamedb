@@ -1,11 +1,29 @@
+import { useEffect, useState } from 'react';
+
 import Link from 'next/link';
 
 import { Meta } from '../components/Meta';
 import VideoText from '../components/VideoText';
-import { TextWrapper } from '../styles';
+import { BigTitle, TextWrapper } from '../styles';
 import config from '../utils/config';
+import { generateRandom } from '../utils/utils';
 
 const Index = () => {
+  const [imageIndex, setImageIndex] = useState(0);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    // Runs on mount only
+    setImageIndex(generateRandom(config.totalImages));
+
+    // Fade in clipped image
+    if (!active) {
+      setTimeout(() => {
+        setActive(true);
+      }, 2500);
+    }
+  }, []);
+
   return (
     <div className="antialiased w-full min-h-screen px-1 py-16 text-center flex items-center flex-col">
       <Meta
@@ -13,7 +31,7 @@ const Index = () => {
         description={config.description}
       />
 
-      <TextWrapper>
+      <TextWrapper className="hidden md:block">
         <VideoText
           text={config.title}
           // posterImage={`/assets/images/shots/${imageIndex}.jpg`}
@@ -24,6 +42,14 @@ const Index = () => {
           ]}
         />
       </TextWrapper>
+
+      <BigTitle
+        className="text-8xl sm:text-12xl md:hidden"
+        active={active}
+        src={`/assets/images/shots/${imageIndex}.jpg`}
+      >
+        {config.title}
+      </BigTitle>
 
       <p className="font-bold text-2xl mb-12 uppercase">
         Aerial cinematography {/* drone productions */}{' '}

@@ -1,5 +1,11 @@
 import styled from '@emotion/styled';
 
+export const StyledWrapper = styled.div<any>`
+  position: relative;
+  pointer-events: none;
+  user-select: none;
+`;
+
 export const StyledBackgroundText = styled.div<any>`
   transition: all 2s ease-in;
   color: black;
