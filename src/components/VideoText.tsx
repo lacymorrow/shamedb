@@ -15,6 +15,7 @@ import { incrementNumber } from '../utils/utils';
 
 interface StateType {
   active: boolean;
+  interactive: boolean;
   index: number;
 }
 
@@ -27,6 +28,7 @@ const VideoText = (props: {
   text?: string;
   src: string | Array<string>;
 }) => {
+  const [width, height] = [720, 385];
   const { children, text, src, ...rest } = props;
   const sources = typeof src === 'string' ? [src] : src;
 
@@ -35,13 +37,34 @@ const VideoText = (props: {
     (currentState, newState) => ({ ...currentState, ...newState }),
     {
       active: false,
+      interactive: false,
       index: 0,
     }
   );
 
+  const nextVideoIndex = () => incrementNumber(state.index, sources.length);
+
+  const nextVideo = () => {
+    if (state.interactive || videoEl.current.paused) {
+      setState({ active: false, interactive: false });
+
+      setTimeout(() => {
+        setState({
+          index: nextVideoIndex(),
+        });
+      }, TRANSITION_DURATION * 1000);
+    }
+  };
+
   const handleCanPlay = (event: any) => {
     setState({ active: true });
     event?.target.play();
+
+    setTimeout(() => {
+      setState({
+        interactive: true,
+      });
+    }, TRANSITION_DURATION * 1000);
   };
   const handleCanPlayThrough = () => {};
 
@@ -53,15 +76,12 @@ const VideoText = (props: {
     }
 
     if (state.active && currentTime + TRANSITION_DURATION >= duration) {
-      // fade out
-      setState({ active: false });
+      // Fade out
+      setState({ active: false, interactive: false });
     }
 
     if (ended) {
-      const nextVideo = incrementNumber(state.index, sources.length);
-      setState({
-        index: nextVideo,
-      });
+      nextVideo();
     }
   };
 
@@ -72,7 +92,7 @@ const VideoText = (props: {
   }, []);
 
   return (
-    <StyledWrapper {...rest}>
+    <StyledWrapper {...rest} onClick={nextVideo}>
       <StyledBackgroundText>{text || children}</StyledBackgroundText>
       <StyledVideoText
         active={state.active}
@@ -84,8 +104,8 @@ const VideoText = (props: {
           // loop
           // crossOrigin=''
           preload="auto"
-          width={720}
-          height={385}
+          width={width}
+          height={height}
           className="svg-clipped-text"
           // poster={posterImage}
           key={state.index}
@@ -97,7 +117,7 @@ const VideoText = (props: {
           Your browser does not support this video file.
         </video>
 
-        <svg width={720} height={385}>
+        <svg width={width} height={height}>
           <clipPath id="svgTextPath">
             <text x="50%" y="50%">
               {text || children}

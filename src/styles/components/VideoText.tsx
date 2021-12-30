@@ -1,14 +1,19 @@
 import styled from '@emotion/styled';
 
 export const StyledWrapper = styled.div<any>`
+  overflow: hidden;
   position: relative;
-  pointer-events: none;
-  user-select: none;
+  cursor: pointer;
+  & > * {
+    pointer-events: none;
+    user-select: none;
+  }
 `;
 
 export const StyledBackgroundText = styled.div<any>`
+  margin: -54px auto;
   transition: all 2s ease-in;
-  color: black;
+  color: rgb(26, 32, 44);
   font-weight: 900;
   font-size: 18rem;
   text-align: center;
@@ -17,7 +22,7 @@ export const StyledBackgroundText = styled.div<any>`
 
 export const StyledVideoText = styled.div<any>`
   position: absolute;
-  top: 54px;
+  top: 0;
   left: 0;
   right: 0;
   display: block;
@@ -33,6 +38,8 @@ export const StyledVideoText = styled.div<any>`
   }
 
   svg {
+    position: absolute;
+    top: 0;
     width: 100%;
     height: auto;
   }
@@ -43,7 +50,7 @@ export const StyledVideoText = styled.div<any>`
   }
 
   text {
-    color: black;
+    color: rgb(26, 32, 44);
     font-size: 18rem;
     font-weight: 900;
     font-family: inherit;
