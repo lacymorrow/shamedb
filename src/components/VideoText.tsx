@@ -97,7 +97,7 @@ const VideoText = (props: {
     >
       {/* <StyledBackgroundText>{text || children}</StyledBackgroundText> */}
       <svg width={width} height={height}>
-        <text x="50%" y="50%" id="" className="text-shadow">
+        <text x="50%" y="50%" className="text-shadow">
           {text || children}
         </text>
       </svg>
