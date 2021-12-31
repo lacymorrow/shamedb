@@ -88,7 +88,13 @@ const VideoText = (props: {
   }, []);
 
   return (
-    <StyledWrapper {...rest} width={width} height={height} onClick={nextVideo}>
+    <StyledWrapper
+      {...rest}
+      width={width}
+      height={height}
+      onClick={nextVideo}
+      aria-label={'Fly5'}
+    >
       {/* <StyledBackgroundText>{text || children}</StyledBackgroundText> */}
       <svg width={width} height={height}>
         <text x="50%" y="50%" id="" className="text-shadow">
