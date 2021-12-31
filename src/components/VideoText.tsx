@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import { StyledVideoText, StyledWrapper } from '../styles/components/VideoText';
-import { incrementNumber } from '../utils/utils';
+import { incrementNumber, prefersReducedMotion } from '../utils/utils';
 
 interface StateType {
   active: boolean;
@@ -54,7 +54,14 @@ const VideoText = (props: {
 
   const handleCanPlay = (event: any) => {
     setState({ active: true });
-    event?.target.play();
+
+    if (prefersReducedMotion()) {
+      setTimeout(() => {
+        nextVideo();
+      }, 10000);
+    } else {
+      event?.target.play();
+    }
 
     setTimeout(() => {
       setState({
@@ -88,14 +95,7 @@ const VideoText = (props: {
   }, []);
 
   return (
-    <StyledWrapper
-      {...rest}
-      width={width}
-      height={height}
-      onClick={nextVideo}
-      aria-label={'Fly5'}
-    >
-      {/* <StyledBackgroundText>{text || children}</StyledBackgroundText> */}
+    <StyledWrapper {...rest} width={width} height={height} aria-label={'Fly5'}>
       <svg width={width} height={height}>
         <text x="50%" y="50%" className="text-shadow">
           {text || children}
@@ -104,17 +104,16 @@ const VideoText = (props: {
       <StyledVideoText
         active={state.active}
         transitionDuration={TRANSITION_DURATION}
+        onClick={nextVideo}
       >
         <video
           ref={videoEl}
           muted
-          // loop
           // crossOrigin=''
           preload="auto"
           width={width}
           height={height}
           className="svg-clipped-text"
-          // poster={posterImage}
           key={state.index}
           onTimeUpdate={handleUpdate}
           onCanPlay={handleCanPlay}
@@ -132,6 +131,18 @@ const VideoText = (props: {
           </clipPath>
         </svg>
       </StyledVideoText>
+      {prefersReducedMotion() && (
+        <small className="text-xs relative z-[1]">
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion#user_preferences"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Your settings indicate that you prefer reduced motion, so we have
+            paused this video ↗
+          </a>
+        </small>
+      )}
     </StyledWrapper>
   );
 };
