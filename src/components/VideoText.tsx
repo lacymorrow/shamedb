@@ -6,11 +6,7 @@ import React, {
   useRef,
 } from 'react';
 
-import {
-  StyledBackgroundText,
-  StyledVideoText,
-  StyledWrapper,
-} from '../styles/components/VideoText';
+import { StyledVideoText, StyledWrapper } from '../styles/components/VideoText';
 import { incrementNumber } from '../utils/utils';
 
 interface StateType {
@@ -92,8 +88,13 @@ const VideoText = (props: {
   }, []);
 
   return (
-    <StyledWrapper {...rest} onClick={nextVideo}>
-      <StyledBackgroundText>{text || children}</StyledBackgroundText>
+    <StyledWrapper {...rest} width={width} height={height} onClick={nextVideo}>
+      {/* <StyledBackgroundText>{text || children}</StyledBackgroundText> */}
+      <svg width={width} height={height}>
+        <text x="50%" y="50%" id="" className="text-shadow">
+          {text || children}
+        </text>
+      </svg>
       <StyledVideoText
         active={state.active}
         transitionDuration={TRANSITION_DURATION}
