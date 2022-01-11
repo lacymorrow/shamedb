@@ -47,9 +47,9 @@ const Alt = (props: AltProps) => (
         {props.children}
       </Wrapper>
     </div>
-    <div className="text-center py-16 text-xs uppercase text-gray-700">
+    {/* <div className="text-center py-16 text-xs uppercase text-gray-700">
       © Copyright {new Date().getFullYear()} {config.title}
-    </div>
+    </div> */}
   </PageWrapper>
 );
 
