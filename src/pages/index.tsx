@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Meta } from '../components/Meta';
+import Status from '../components/user/Status';
 import VideoText from '../components/VideoText';
 import { BigTitle, TextWrapper } from '../styles';
 import config from '../utils/config';
@@ -30,6 +31,8 @@ const Index = () => {
         title={`${config.title}: ${config.tagline}`}
         description={config.description}
       />
+
+      <Status />
 
       <TextWrapper className="hidden md:block">
         <VideoText

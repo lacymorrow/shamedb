@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 
@@ -7,7 +8,7 @@ import * as ga from '../lib/ga';
 
 import '../styles/global.css';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -24,7 +25,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
-  return <Component {...pageProps} />;
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 };
 
-export default MyApp;
+export default App;

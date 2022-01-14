@@ -1,14 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: {
-    content: ['./src/**/*.{js,ts,jsx,tsx}'],
-    options: {
-      safelist: [],
-      blocklist: [/^debug-/],
-      keyframes: true,
-      fontFace: true,
-    },
-  },
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontSize: {
       xs: '0.75rem',
