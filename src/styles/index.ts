@@ -11,7 +11,7 @@ export const BigTitle = styled.h1<any>`
     backgroundImage: `url("${props.src || '/assets/images/shots/8.jpg'}")`,
   })}
   transition: background 2s ease-in;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   color: black;
   font-weight: 900;

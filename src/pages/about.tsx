@@ -1,18 +1,18 @@
 import { Meta } from '../components/Meta';
-import { Main } from '../templates/Main';
+import Layout from '../templates/Home';
 import config from '../utils/config';
 
 const About = () => (
-  <Main
+  <Layout
     meta={
       <Meta
-        title={`Contact | ${config.title}: ${config.tagline}`}
+        title={`About | ${config.title}: ${config.tagline}`}
         description={config.description}
       />
     }
   >
-    <p>Impactful Drone Productions</p>
-  </Main>
+    <p>Why we name and shame.</p>
+  </Layout>
 );
 
 export default About;

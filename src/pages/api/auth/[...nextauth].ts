@@ -1,5 +1,8 @@
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
+
+import clientPromise from '../../../lib/mongodb';
 // import AppleProvider from 'next-auth/providers/apple';
 // import FacebookProvider from 'next-auth/providers/facebook';
 // import GoogleProvider from 'next-auth/providers/google';
@@ -8,6 +11,7 @@ import GithubProvider from 'next-auth/providers/github';
 export default NextAuth({
   // Required for production
   secret: process.env.NEXTAUTH_SECRET || undefined,
+  adapter: MongoDBAdapter(clientPromise),
 
   // Configure one or more authentication providers
   providers: [
@@ -35,7 +39,7 @@ export default NextAuth({
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
-      return { accessToken: token.accessToken, ...session };
+      return { token, ...session };
     },
   },
 });
