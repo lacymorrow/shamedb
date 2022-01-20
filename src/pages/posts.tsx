@@ -1,7 +1,7 @@
 import { Meta } from '../components/Meta';
+import { getAllPosts } from '../lib/posts';
 import Layout from '../templates/Home';
 import config from '../utils/config';
-import currentUrl from '../utils/currentUrl';
 
 const Posts = (props: { posts: any }) => (
   <Layout
@@ -24,8 +24,8 @@ const Posts = (props: { posts: any }) => (
 
 export default Posts;
 
-export async function getServerSideProps(_: any) {
-  const res = await fetch(`${currentUrl}/api/posts/all`);
-  const posts = await res.json();
-  return { props: { posts } };
-}
+export const getServerSideProps = async (_: any) => {
+  const posts = await getAllPosts();
+  console.log(posts);
+  return { props: { posts: JSON.parse(JSON.stringify(posts)) } };
+};

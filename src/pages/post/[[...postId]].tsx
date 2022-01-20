@@ -1,31 +1,48 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import clientPromise from '../../lib/mongodb';
+import { getAllPostIds, getPost } from '../../lib/posts';
 
-export default function Posts() {
+export default function Posts({ post }: any) {
   const router = useRouter();
   const { postId } = router.query;
   return (
     <div>
       <h1>Post</h1>
+      <p>{post}</p>
       <ul>{postId}</ul>
     </div>
   );
 }
 
-export async function getServerSideProps() {
-  const client = await clientPromise;
+export async function getStaticPaths() {
+  const ids = await getAllPostIds();
+  const paths = ids.map((postId: string) => {
+    return { params: { postId: [postId] } };
+  });
+  return { paths, fallback: 'blocking' };
+}
 
-  const posts = await client
-    .db(process.env.MONGODB_DB)
-    .collection('posts')
-    .find({})
-    .limit(20)
-    .toArray();
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Invalid or missing postId
+  if (!params?.postId) {
+    return {
+      redirect: { destination: '/', permanent: false },
+    };
+  }
+  const post = await getPost(params.postId);
+
+  // No post found
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
+      post: JSON.stringify(post),
     },
+    revalidate: 10, // in seconds
   };
-}
+};

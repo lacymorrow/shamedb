@@ -1,3 +1,9 @@
+/*
+	votes
+	sharing
+	flag
+*/
+
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';

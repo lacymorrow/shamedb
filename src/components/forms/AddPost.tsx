@@ -10,7 +10,7 @@ interface StateType {
   victim?: string;
   description: string;
   location?: string;
-  source?: string;
+  source?: [string];
   videoUri?: string;
 }
 
@@ -40,7 +40,7 @@ const AddPost = () => {
   const postForm = async (event: any) => {
     event.preventDefault();
 
-    await fetch('/api/posts/add', {
+    await fetch('/api/post/add', {
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
