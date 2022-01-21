@@ -16,7 +16,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   // const post = await getFirstPost();
   // return response.json(post);
 
-  return null;
+  return response.status(404);
 };
 
 export default handler;

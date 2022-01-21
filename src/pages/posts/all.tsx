@@ -1,7 +1,7 @@
-import { Meta } from '../components/Meta';
-import { getAllPosts } from '../lib/posts';
-import Layout from '../templates/Home';
-import config from '../utils/config';
+import { Meta } from '../../components/Meta';
+import { getAllPosts } from '../../lib/posts';
+import Layout from '../../templates/Home';
+import config from '../../utils/config';
 
 const Posts = (props: { posts: any }) => (
   <Layout
@@ -25,7 +25,10 @@ const Posts = (props: { posts: any }) => (
 export default Posts;
 
 export const getServerSideProps = async (_: any) => {
-  const posts = await getAllPosts();
-  console.log(posts);
-  return { props: { posts: JSON.parse(JSON.stringify(posts)) } };
+  try {
+    const posts = await getAllPosts();
+    return { props: { posts: JSON.parse(JSON.stringify(posts)) } };
+  } catch (error) {
+    return { notFound: true };
+  }
 };

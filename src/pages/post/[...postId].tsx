@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Invalid or missing postId
   if (!params?.postId) {
     return {
-      redirect: { destination: '/', permanent: false },
+      redirect: { destination: '/post/random', permanent: false },
     };
   }
   const post = await getPost(params.postId);

@@ -1,5 +1,6 @@
 import { MongoError, ObjectId } from 'mongodb';
 
+import { generateRandom } from '../utils/utils';
 import clientPromise from './mongodb';
 
 export const addPost = async (props: {}) => {
@@ -48,15 +49,6 @@ export const getAllPostsPaginated = async ({
 
 export const getAllPosts = () => getAllPostsPaginated({ limit: 0, skip: 0 });
 
-export const getAllPostIds = async () => {
-  const posts = await getAllPosts();
-  const paths = posts.map((post: any) => {
-    // eslint-disable-next-line no-underscore-dangle
-    return post._id.toString();
-  });
-  return paths;
-};
-
 export const getFirstPost = async () => {
   const client = await clientPromise;
 
@@ -93,4 +85,18 @@ export const getPost = async (postId: string | string[]) => {
   } catch (error) {
     return null;
   }
+};
+
+export const getAllPostIds = async () => {
+  const posts = await getAllPosts();
+  const paths = posts.map((post: any) => {
+    // eslint-disable-next-line no-underscore-dangle
+    return post._id.toString();
+  });
+  return paths;
+};
+
+export const getRandomPostId = async () => {
+  const ids = await getAllPostIds();
+  return ids[generateRandom(ids.length)];
 };

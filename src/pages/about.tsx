@@ -12,6 +12,11 @@ const About = () => (
     }
   >
     <p>Why we name and shame.</p>
+    <p>
+      We do not shame just anyone. Instead, we focus on <b>companies</b>,{' '}
+      <b>politicians</b>, and <b>police officers</b>. We shame public entities
+      that <b>abuse their positions of power</b>.
+    </p>
   </Layout>
 );
 
