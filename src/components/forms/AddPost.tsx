@@ -1,17 +1,14 @@
 import { Reducer, useReducer } from 'react';
 
-import {
-  FormStyled,
-  InputGroup,
-} from '../../styles/components/forms/CreatePost';
+import { FormStyled, InputGroup } from '../../styles/components/forms/AddPost';
 
 interface StateType {
   entity: string;
   victim?: string;
   description: string;
   location?: string;
-  source?: [string];
-  videoUri?: string;
+  source?: string | string[];
+  videoUrl?: string;
 }
 
 const AddPost = () => {
@@ -23,7 +20,7 @@ const AddPost = () => {
       description: '',
       location: undefined,
       source: undefined,
-      videoUri: undefined,
+      videoUrl: undefined,
     }
   );
 

@@ -63,4 +63,4 @@ const Meta = (props: MetaProps) => {
   );
 };
 
-export { Meta };
+export default Meta;

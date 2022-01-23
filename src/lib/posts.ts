@@ -1,27 +1,32 @@
-import { MongoError, ObjectId } from 'mongodb';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { ObjectId } from 'mongodb';
 
 import { generateRandom } from '../utils/utils';
 import clientPromise from './mongodb';
 
-export const addPost = async (props: {}) => {
+export const addPost = async (props: any) => {
+  let thumbnail: string = '';
   const client = await clientPromise;
+  if (props.videoUrl) {
+    const response = await fetch(
+      `http://noembed.com/embed?url=${props.videoUrl}`
+    );
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { thumbnail_url } = await response.json();
+    thumbnail = thumbnail_url;
+  }
 
   const post = await client
     .db(process.env.MONGODB_DB)
     .collection('posts')
-    .insertOne(
-      {
-        timeCreated: Date.now(),
-        timeUpdated: Date.now(),
-        ...props,
-      },
-      (error: MongoError) => {
-        if (error) {
-          return false;
-        }
-        return true;
-      }
-    );
+    .insertOne({
+      createdByUser: '61e8717cd38d770f67357134',
+      timeDate: String(new Date()),
+      timeCreated: Date.now(),
+      timeUpdated: Date.now(),
+      thumbnail,
+      ...props,
+    });
 
   return post;
 };
@@ -35,7 +40,7 @@ export const getAllPostsPaginated = async ({
 }) => {
   const client = await clientPromise;
 
-  const posts = await client
+  let posts = await client
     .db(process.env.MONGODB_DB)
     .collection('posts')
     .find({})
@@ -43,6 +48,13 @@ export const getAllPostsPaginated = async ({
     .skip(skip > 0 ? (skip - 1) * limit : 0)
     .limit(limit)
     .toArray();
+
+  // Convert `new ObjectId('...')` to string '...'
+  posts = posts.map((post: any) => {
+    const { _id, ...rest } = post;
+
+    return { _id: _id.toString(), ...rest };
+  });
 
   return posts;
 };
@@ -56,7 +68,11 @@ export const getFirstPost = async () => {
     .db(process.env.MONGODB_DB)
     .collection('posts')
     .findOne({}, { sort: { $natural: -1 } });
-  return post;
+
+  // Convert `new ObjectId('...')` to string '...'
+  const { _id, ...rest } = post;
+
+  return { _id: _id.toString(), ...rest };
 };
 
 export const getPost = async (postId: string | string[]) => {
@@ -68,6 +84,7 @@ export const getPost = async (postId: string | string[]) => {
     if (!postId) {
       throw new Error('Invalid postId');
     }
+
     if (typeof postId === 'object') {
       [id] = postId;
     } else {
@@ -81,7 +98,10 @@ export const getPost = async (postId: string | string[]) => {
       .collection('posts')
       .findOne({ _id: oId });
 
-    return post;
+    // Convert `new ObjectId('...')` to string '...'
+    const { _id, ...rest } = post;
+
+    return { _id: _id.toString(), ...rest };
   } catch (error) {
     return null;
   }
@@ -93,10 +113,82 @@ export const getAllPostIds = async () => {
     // eslint-disable-next-line no-underscore-dangle
     return post._id.toString();
   });
+
   return paths;
 };
 
 export const getRandomPostId = async () => {
   const ids = await getAllPostIds();
+
   return ids[generateRandom(ids.length)];
+};
+
+export const deletePost = async (postId: string | string[]) => {
+  // Return a single document with a given postId
+  let id;
+  const client = await clientPromise;
+
+  try {
+    if (!postId) {
+      throw new Error('Invalid postId');
+    }
+
+    if (typeof postId === 'object') {
+      [id] = postId;
+    } else {
+      id = postId;
+    }
+
+    const oId = new ObjectId(id);
+
+    await client
+      .db(process.env.MONGODB_DB)
+      .collection('posts')
+      .remove({ _id: oId });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const DeletePost = async (postId: string | string[]) => {
+  // Return a single document with a given postId
+  let id;
+  const client = await clientPromise;
+
+  try {
+    if (!postId) {
+      throw new Error('Invalid postId');
+    }
+
+    if (typeof postId === 'object') {
+      [id] = postId;
+    } else {
+      id = postId;
+    }
+
+    const oId = new ObjectId(id);
+
+    await client
+      .db(process.env.MONGODB_DB)
+      .collection('posts')
+      .remove({ _id: oId });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const deleteAllPosts = async () => {
+  const client = await clientPromise;
+
+  try {
+    await client.db(process.env.MONGODB_DB).collection('posts').remove({});
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 };

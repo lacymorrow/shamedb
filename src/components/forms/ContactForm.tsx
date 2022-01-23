@@ -4,8 +4,8 @@ import {
   FormStyled,
   InputGroup,
   Status,
-} from '../styles/components/ContactForm';
-import config from '../utils/config';
+} from '../../styles/components/forms/ContactForm';
+import config from '../../utils/config';
 
 interface StateType {
   name: string;

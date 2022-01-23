@@ -12,6 +12,11 @@ export default NextAuth({
   // Required for production
   secret: process.env.NEXTAUTH_SECRET || undefined,
   adapter: MongoDBAdapter(clientPromise),
+  theme: {
+    colorScheme: 'auto',
+    brandColor: '#f00',
+    logo: '',
+  },
 
   // Configure one or more authentication providers
   providers: [

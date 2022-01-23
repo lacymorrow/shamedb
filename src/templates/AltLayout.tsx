@@ -2,15 +2,15 @@ import { ReactNode } from 'react';
 
 import Link from 'next/link';
 
-import { PageWrapper, Wrapper } from '../styles/main';
+import { PageWrapper, Wrapper } from '../styles/alt';
 import config from '../utils/config';
 
-type MainProps = {
+type AltProps = {
   meta: ReactNode;
   children: ReactNode;
 };
 
-const Main = (props: MainProps) => (
+const Alt = (props: AltProps) => (
   <PageWrapper className="alternative min-h-screen">
     {props.meta}
     <div className="pt-2 pb-8 w-100 w-full mx-auto flex-col justify-center text-gray-900">
@@ -53,4 +53,4 @@ const Main = (props: MainProps) => (
   </PageWrapper>
 );
 
-export default Main;
+export default Alt;

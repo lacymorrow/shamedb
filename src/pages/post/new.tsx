@@ -1,6 +1,6 @@
 import Form from '../../components/forms/AddPost';
-import { Meta } from '../../components/Meta';
-import Layout from '../../templates/Main';
+import Meta from '../../components/Meta';
+import Layout from '../../templates/AltLayout';
 import config from '../../utils/config';
 
 const Add = () => {
