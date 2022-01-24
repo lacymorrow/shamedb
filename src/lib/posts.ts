@@ -13,7 +13,8 @@ export const addPost = async (props: any) => {
     );
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { thumbnail_url } = await response.json();
-    thumbnail = thumbnail_url;
+    thumbnail = thumbnail_url.replace('hqdefault', 'mqdefault');
+    // Todo: check for existence
   }
 
   const post = await client

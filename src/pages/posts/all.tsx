@@ -23,25 +23,35 @@ const Posts = (props: { posts: any }) => (
           return (
             <PostWrapper key={key}>
               <Link href={`/post/${post._id}`}>
-                <a className="block w-100 p-4">
+                <a className="block w-100 p-4 flex">
                   {post.thumbnail && (
-                    <div className="relative h-12 w-12">
-                      <Image src={post.thumbnail} layout="fill" />
+                    <div className="relative w-40">
+                      <Image
+                        src={post.thumbnail}
+                        layout="responsive"
+                        objectFit="contain"
+                        sizes="30vw"
+                        alt="Video thumbnail"
+                        height="100%"
+                        width="100%"
+                      />
                     </div>
                   )}
-                  <h3>
-                    {post.entity || (
-                      <span>
+                  <div>
+                    <h3>
+                      {post.entity || (
+                        <span>
+                          <b>Victim:</b> {post.victim}
+                        </span>
+                      )}
+                    </h3>
+                    {post.entity && post.victim && (
+                      <h4>
                         <b>Victim:</b> {post.victim}
-                      </span>
+                      </h4>
                     )}
-                  </h3>
-                  {post.entity && post.victim && (
-                    <h4>
-                      <b>Victim:</b> {post.victim}
-                    </h4>
-                  )}
-                  <p className="app-text-unimportant">{post.timeDate}</p>
+                    <p className="app-text-unimportant">{post.timeDate}</p>
+                  </div>
                 </a>
               </Link>
             </PostWrapper>
