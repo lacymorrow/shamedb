@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getAllPostsPaginated } from '../../../lib/posts';
+import { getAllPostsPaginated } from '../../../lib/db';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   let lim = 0;

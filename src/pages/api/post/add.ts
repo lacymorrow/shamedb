@@ -1,7 +1,7 @@
 // Validate that post is not duplicate
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { addPost } from '../../../lib/posts';
+import { addPost } from '../../../lib/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

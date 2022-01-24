@@ -3,6 +3,7 @@ import { Reducer, useReducer } from 'react';
 import { FormStyled, InputGroup } from '../../styles/components/forms/AddPost';
 
 interface StateType {
+  createdByUser?: string;
   entity: string;
   victim?: string;
   description: string;
@@ -11,10 +12,11 @@ interface StateType {
   videoUrl?: string;
 }
 
-const AddPost = () => {
+const AddPost = ({ user }: { user: string }) => {
   const [state, setState] = useReducer<Reducer<StateType, Partial<StateType>>>(
     (currentState, newState) => ({ ...currentState, ...newState }),
     {
+      createdByUser: user || undefined,
       entity: '',
       victim: undefined,
       description: '',

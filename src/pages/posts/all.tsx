@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Meta from '../../components/Meta';
-import { getAllPosts } from '../../lib/posts';
+import { getAllPosts } from '../../lib/db';
 import { PostWrapper } from '../../styles/post';
 import Layout from '../../templates/MainLayout';
 import config from '../../utils/config';

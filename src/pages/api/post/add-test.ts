@@ -1,5 +1,5 @@
 // Validate that post is not duplicate
-import { addPost } from '../../../lib/posts';
+import { addPost } from '../../../lib/db';
 
 const add = async (_: any, res: any) => {
   const post = await addPost({

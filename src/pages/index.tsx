@@ -8,6 +8,7 @@
 	flag
 	comments
 	loading states
+	SSR/SSG
 	type: any
 */
 

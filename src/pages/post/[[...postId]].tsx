@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 
 import Meta from '../../components/Meta';
 import VideoPlayer from '../../components/VideoPlayer';
-import { getAllPostIds, getPost } from '../../lib/posts';
+import { getAllPostIds, getPost } from '../../lib/db';
 import { PostWrapper } from '../../styles/post';
 import MainLayout from '../../templates/MainLayout';
 import config from '../../utils/config';

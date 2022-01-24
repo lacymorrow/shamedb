@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { deleteAllPosts } from '../../../../lib/posts';
+import { deleteAllPosts } from '../../../../lib/db';
 
 const handler = async (_: NextApiRequest, response: NextApiResponse) => {
   const posts = await deleteAllPosts();

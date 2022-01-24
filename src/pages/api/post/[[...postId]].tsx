@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getPost } from '../../../lib/posts';
+import { getPost } from '../../../lib/db';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {

@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 
-import { getRandomPostId } from '../../lib/posts';
+import { getRandomPostId } from '../../lib/db';
 
 export default function Random() {
   return <></>;
